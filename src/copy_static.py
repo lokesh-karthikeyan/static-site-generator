@@ -3,7 +3,7 @@ import os
 
 def copy_static():
     source_dir = os.path.join(os.getcwd(), 'static')
-    destination_dir = os.path.join(os.getcwd(), 'public')
+    destination_dir = os.path.join(os.getcwd(), 'docs')
 
     delete_dir_contents(destination_dir)
 
@@ -23,10 +23,13 @@ def copy_contents(source_dir, destination_dir):
 
 
 def delete_dir_contents(directory):
-    for item in os.listdir(directory):
-        item_path = os.path.join(directory, item)
+    if os.path.exists(directory):
+        for item in os.listdir(directory):
+            item_path = os.path.join(directory, item)
 
-        if os.path.isfile(item_path):
-            os.remove(item_path)
-        else:
-            shutil.rmtree(item_path)
+            if os.path.isfile(item_path):
+                os.remove(item_path)
+            else:
+                shutil.rmtree(item_path)
+    else:
+        print(f"Warning: Directory '{directory}' does not exist. Skipping.")
